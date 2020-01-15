@@ -178,8 +178,8 @@ const menu = [
   },
   {
     id: 1,
-    label: '소개',
-    path: '/About'
+    label: '소개 입니다',
+    path: '/About/'
   }
 ]
 const mainLayout: React.FC = ({ children }) => {
@@ -196,8 +196,10 @@ const mainLayout: React.FC = ({ children }) => {
   // tab이 눌려져있는 효과를 표현하기 위한 memohook
   if (typeof window !== `undefined`) {
     React.useMemo(() => {
+      console.log(location)
       let tabidx = menu.filter(item => item.path == location.pathname)
-      setValue(tabidx[0].id)
+      console.log(tabidx)
+      if (tabidx.length > 0) setValue(tabidx[0].id)
     }, [value])
   }
 
@@ -234,7 +236,7 @@ const mainLayout: React.FC = ({ children }) => {
                 </ListItem>
               </Link>
               <Divider />
-              <Link to={'/About'} className={classes.mainlistItem}>
+              <Link to={'/About/'} className={classes.mainlistItem}>
                 <ListItem selected={value === 1} button>
                   <ListItemText primary="소개" />
                 </ListItem>

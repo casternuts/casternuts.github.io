@@ -11,14 +11,7 @@ const About = () => (
       <Container>
         <h1>Hi from the second page</h1>
         <p>Welcome to page 2</p>
-        <ul>
-          <li>
-            <Link to="/page-2/">Show me some Markdown!</Link>
-          </li>
-          <li>
-            <Link to="/">Take me back home.</Link>
-          </li>
-        </ul>
+        <ul></ul>
       </Container>
     </Page>
   </MainLayout>
