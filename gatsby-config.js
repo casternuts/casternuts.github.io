@@ -18,7 +18,16 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'content',
-        path: `${__dirname}/src/content`
+        path: `${__dirname}/src/content/blog`,
+        name: `blog`
+      }
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'content',
+        path: `${__dirname}/src/content/page-me`,
+        name: `page-me`
       }
     },
     {
@@ -49,13 +58,23 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
-        siteUrl: 'https://gatsby-starter-typescript-plus.netlify.com'
+        siteUrl: 'https://casternuts.github.io'
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: 'https://casternuts.github.io',
+        sitemap: 'https://casternuts.github.io/sitemap.xml',
+        policy: [{ userAgent: '*', allow: '/' }]
       }
     },
     'gatsby-plugin-emotion',
     'gatsby-plugin-typescript',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
-    'gatsby-plugin-react-helmet'
+    'gatsby-plugin-react-helmet',
+    `gatsby-plugin-material-ui`,
+    'gatsby-plugin-sitemap'
   ]
 }

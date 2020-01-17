@@ -10,10 +10,10 @@ const StyledHeader = styled.header`
   height: ${heights.header}px;
   padding: 0 ${dimensions.containerPadding}rem;
   background-color: ${colors.header};
-  color: ${transparentize(0.5, colors.white)};
+  color: ${colors.black};
 `
 
-const HeaderInner = styled(Container)`
+const HeaderInner = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -21,7 +21,7 @@ const HeaderInner = styled(Container)`
 `
 
 const HomepageLink = styled(Link)`
-  color: ${colors.white};
+  color: ${colors.black};
   font-size: 1.5rem;
   font-weight: 600;
 

@@ -1,45 +1,45 @@
 import * as React from 'react'
-// import { Link } from 'gatsby'
+
 import Helmet from 'react-helmet'
-import Page from '../components/Page'
-// import Container from '../components/Container'
-import IndexLayout from '../layouts'
+
 import { graphql, useStaticQuery } from 'gatsby'
-///
+
 import clsx from 'clsx'
-import { makeStyles } from '@material-ui/core/styles'
+
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Drawer from '@material-ui/core/Drawer'
-import Box from '@material-ui/core/Box'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
+
 import List from '@material-ui/core/List'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
-import Badge from '@material-ui/core/Badge'
-import Container from '@material-ui/core/Container'
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
-// import Link from '@material-ui/core/Link';
+
+//  import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu'
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import NotificationsIcon from '@material-ui/icons/Notifications'
 
 import ListItem from '@material-ui/core/ListItem'
 
 import ListItemText from '@material-ui/core/ListItemText'
 
 import { Link, navigate } from 'gatsby'
-import { Router, Location } from '@reach/router'
+
 import Hidden from '@material-ui/core/Hidden'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 
-import DeleteIcon from '@material-ui/icons/Delete'
+import { makeStyles } from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper'
+import Avatar from '@material-ui/core/Avatar'
+import Card from '@material-ui/core/Card'
+import CardHeader from '@material-ui/core/CardHeader'
+
+import GitHubIcon from '@material-ui/icons/GitHub'
+import InfoIcon from '@material-ui/icons/Info'
+
+//nin 으로 이력서는 출력 안되게 했음
 const mainQuery = graphql`
   query mainQuery {
-    allMarkdownRemark {
+    allMarkdownRemark(filter: { frontmatter: { about: { nin: "about" } } }) {
       edges {
         node {
           excerpt(truncate: true, pruneLength: 200)
@@ -65,6 +65,12 @@ const drawerWidth = 300
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex'
+  },
+  paperFlex: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    padding: theme.spacing(0.5)
   },
   mainLogo: {
     padding: '0 2rem',
@@ -97,18 +103,23 @@ const useStyles = makeStyles(theme => ({
     fontSize: '33px',
     padding: '10px'
   },
-  menuButton: {
-    marginRight: 36
-  },
+
   menuButtonHidden: {
     display: 'none'
   },
   title: {
     flexGrow: 1
   },
+  drawer: {
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0
+    }
+  },
   drawerPaper: {
     position: 'relative',
     whiteSpace: 'nowrap',
+    overflowX: 'hidden',
     width: drawerWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
@@ -130,7 +141,10 @@ const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     height: '100vh',
-    overflow: 'auto'
+    overflow: 'auto',
+    paddingTop: '0px',
+    paddingLeft: '0px',
+    backgroundColor: '#f1f3f5'
   },
   container: {
     paddingTop: theme.spacing(4),
@@ -145,16 +159,33 @@ const useStyles = makeStyles(theme => ({
   fixedHeight: {
     height: 240
   },
+  menuButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      display: 'none'
+    }
+  },
+  mainlistItemSelected: {
+    borderRight: '#0095da !important',
+    borderStyle: 'groove !important',
+    backgroundColor: '#fff !important',
+    color: '#0095da',
+    fontWeight: 'bold'
+  },
   mainlistItem: {
-    backgroundColor: '#fff',
-    color: '#000',
-    textDecoration: 'none',
     '&:hover': {
-      backgroundColor: '#cccccc'
+      borderRight: '#0095da !important',
+      borderStyle: 'groove !important'
     },
     '&:active': {
-      backgroundColor: '#dddddd'
+      borderRight: '#0095da',
+      borderStyle: 'groove'
     }
+  },
+  mainlist: {
+    backgroundColor: '#fff',
+    color: '#000',
+    textDecoration: 'none'
   },
   menutab: {
     root: {
@@ -167,6 +198,12 @@ const useStyles = makeStyles(theme => ({
         opacity: 1
       }
     }
+  },
+  copyright: {
+    color: '#cccccc',
+    fontSize: '16px',
+    fontWeight: 600,
+    textAlign: 'center'
   }
 }))
 
@@ -179,27 +216,39 @@ const menu = [
   {
     id: 1,
     label: '소개 입니다',
-    path: '/About/'
+    path: '/page-me/'
+  },
+  {
+    id: 2,
+    label: 'TAG',
+    path: '/page-tag/'
   }
 ]
 const mainLayout: React.FC = ({ children }) => {
   const data = useStaticQuery(mainQuery)
   const classes = useStyles()
   const [value, setValue] = React.useState(0)
-
+  console.log(data)
   // console.log(window.location)
   // tab을 위한 작업
   const handleChange = (event: any, newValue: number) => {
     let tabidx = menu.filter(item => item.id == newValue)
     navigate(tabidx[0].path)
   }
+  const buttonClick = (value: any) => {
+    console.log(value)
+    if (value) navigate(value)
+  }
   // tab이 눌려져있는 효과를 표현하기 위한 memohook
   if (typeof window !== `undefined`) {
     React.useMemo(() => {
-      console.log(location)
-      let tabidx = menu.filter(item => item.path == location.pathname)
-      console.log(tabidx)
-      if (tabidx.length > 0) setValue(tabidx[0].id)
+      if (location.pathname.split('/')[1] != '') {
+        let tabidx = menu.filter(item => item.path == '/' + location.pathname.split('/')[1] + '/')
+        if (tabidx.length > 0) setValue(tabidx[0].id)
+      } else {
+        //navigate('/')
+        setValue(0)
+      }
     }, [value])
   }
 
@@ -212,7 +261,6 @@ const mainLayout: React.FC = ({ children }) => {
           { name: 'keywords', content: data.site.siteMetadata.keywords }
         ]}
       />
-      <CssBaseline />
 
       <Hidden smDown>
         <Drawer
@@ -222,39 +270,70 @@ const mainLayout: React.FC = ({ children }) => {
           }}
           open={true}
         >
-          <Link className={classes.mainLogo} to="/">
-            <Typography component="h1" variant="h5" color="inherit" noWrap className={classes.title}>
-              {data.site.siteMetadata.title}
-            </Typography>
-          </Link>
-          <List>
-            <div>
-              <Divider />
-              <Link to={'/'} className={classes.mainlistItem}>
-                <ListItem selected={value === 0} button>
-                  <ListItemText primary="게시글 목록" />
-                </ListItem>
-              </Link>
-              <Divider />
-              <Link to={'/About/'} className={classes.mainlistItem}>
-                <ListItem selected={value === 1} button>
-                  <ListItemText primary="소개" />
-                </ListItem>
-              </Link>
-              <Divider />
+          <div>
+            <Link className={classes.mainLogo} to="/">
+              <Typography component="h1" variant="h5" color="inherit" noWrap className={classes.title}>
+                {data.site.siteMetadata.title}
+              </Typography>
+            </Link>
+            <List>
+              <div>
+                <Link to={'/'} className={classes.mainlist}>
+                  <ListItem classes={{ root: classes.mainlistItem, selected: classes.mainlistItemSelected }} selected={value === 0} button>
+                    <ListItemText primary="게시글 목록" />
+                  </ListItem>
+                </Link>
+
+                <Link to={'/page-me/'} className={classes.mainlist}>
+                  <ListItem classes={{ root: classes.mainlistItem, selected: classes.mainlistItemSelected }} selected={value === 1} button>
+                    <ListItemText primary="소개" />
+                  </ListItem>
+                </Link>
+                <Link to={'/page-tag/'} className={classes.mainlist}>
+                  <ListItem classes={{ root: classes.mainlistItem, selected: classes.mainlistItemSelected }} selected={value === 2} button>
+                    <ListItemText primary="태그" />
+                  </ListItem>
+                </Link>
+              </div>
+            </List>
+          </div>
+          <div style={{ width: drawerWidth, position: 'absolute', bottom: '0px' }}>
+            <Divider></Divider>
+            <div style={{ textAlign: 'center' }}>
+              {/* <Avatar style={{ width: '100px', height: '100px', margin: 'auto' }}>C</Avatar> */}
+              <Card>
+                <CardHeader
+                  avatar={<Avatar aria-label="recipe">C</Avatar>}
+                  action={<IconButton aria-label="settings"></IconButton>}
+                  title="Written by @Casternuts"
+                  subheader="일상 기록 및 개발 관련 포스팅"
+                />
+
+                <Paper className={classes.paperFlex}>
+                  <IconButton style={{ float: 'left' }} aria-label="github" href={'https://github.com/casternuts'}>
+                    <GitHubIcon />
+                  </IconButton>
+                  <IconButton style={{ float: 'left' }} aria-label="resume" onClick={() => buttonClick('/page-me/')}>
+                    <InfoIcon />
+                  </IconButton>
+
+                  <div className={classes.copyright}>© 2020 casternuts Dev Blog</div>
+                </Paper>
+              </Card>
             </div>
-          </List>
+          </div>
         </Drawer>
       </Hidden>
+
       <main className={classes.content}>
         <Hidden mdUp>
           <div className={classes.appBar}>
             <div className={classes.appBarHeader}>
-              <IconButton style={{ float: 'left' }} aria-label="delete">
-                <MenuIcon />
+              <IconButton style={{ float: 'left' }} aria-label="github" href={'https://github.com/casternuts'}>
+                <GitHubIcon />
               </IconButton>
-              <IconButton style={{ float: 'right' }} aria-label="delete">
-                <MenuIcon />
+              <IconButton style={{ float: 'right' }} aria-label="resume" onClick={() => buttonClick('/page-me/')}>
+                <InfoIcon />
               </IconButton>
 
               <Typography variant="h4">{data.site.siteMetadata.title}</Typography>
@@ -268,8 +347,7 @@ const mainLayout: React.FC = ({ children }) => {
           </div>
           <Divider></Divider>
         </Hidden>
-        <div className={classes.appBarSpacer}></div>
-        {children}
+        <div>{children}</div>
       </main>
     </div>
   )

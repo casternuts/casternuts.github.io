@@ -65,7 +65,7 @@ exports.createPages = async ({ graphql, actions }) => {
     const { slug, layout } = node.fields
 
     createPage({
-      path: slug,
+      path: slug, // path  url의 한부분
       // This will automatically resolve the template to a corresponding
       // `layout` frontmatter in the Markdown.
       //
@@ -82,4 +82,28 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     })
   })
+
+  const allTag = await graphql(`
+    {
+      allMarkdownRemark {
+        group(field: frontmatter___tag) {
+          totalCount
+          fieldValue
+        }
+        totalCount
+      }
+    }
+  `)
+
+  for (let i in allTag.data.allMarkdownRemark.group) {
+    let fieldValue = allTag.data.allMarkdownRemark.group[i].fieldValue
+    createPage({
+      path: `/page-tag/${fieldValue}`, // path  url의 한부분
+      component: path.resolve(`./src/templates/tag.tsx`),
+      context: {
+        // Data passed to context is available in page queries as GraphQL variables.
+        fieldValue
+      }
+    })
+  }
 }

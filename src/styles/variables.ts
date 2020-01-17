@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 
 export const colors = {
-  header: '#444444',
+  header: '#ffffff',
   brand: '#663399',
   lilac: '#9d7cbf',
   accent: '#ffb238',
@@ -62,5 +62,5 @@ export const dimensions = {
 }
 
 export const heights = {
-  header: 60
+  header: 112
 }

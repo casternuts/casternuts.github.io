@@ -1,10 +1,11 @@
 import * as React from 'react'
 import styled from '@emotion/styled'
+import Container from './Container'
 
 const StyledLayoutMain = styled.main`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+  flex-grow: 1;
+  height: 100vh;
+  overflow: auto;
 `
 
 interface LayoutMainProps {

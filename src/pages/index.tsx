@@ -29,19 +29,31 @@ import styled from '@emotion/styled'
 import { heights, dimensions, colors } from '../styles/variables'
 ///
 import { Router } from '@reach/router'
+import PostList from '../components/PostList'
 
 const mainIndexQuery = graphql`
   query mainIndexQuery {
-    allMarkdownRemark {
+    allMarkdownRemark(filter: { frontmatter: { about: { nin: "about" } } }) {
       edges {
         node {
           excerpt(truncate: true, pruneLength: 200)
           frontmatter {
             title
             path
+            date(locale: "")
+            tag
+            category
           }
           id
         }
+      }
+      totalCount
+      pageInfo {
+        itemCount
+        pageCount
+        hasPreviousPage
+        hasNextPage
+        currentPage
       }
     }
     site {
@@ -53,98 +65,6 @@ const mainIndexQuery = graphql`
   }
 `
 
-const drawerWidth = 300
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex'
-  },
-  mainLogo: {
-    padding: '0 2rem',
-    textDecoration: 'none',
-    marginTop: '1.75rem',
-    marginBottom: '1.75rem',
-    fontSize: '2rem',
-    lineHeight: '2rem',
-    color: '#212529',
-    display: 'block',
-    position: 'relative'
-  },
-  toolbar: {
-    paddingRight: 24 // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  },
-  menuButton: {
-    marginRight: 36
-  },
-  menuButtonHidden: {
-    display: 'none'
-  },
-  title: {
-    flexGrow: 1
-  },
-  drawerPaper: {
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  },
-  drawerPaperClose: {
-    overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    }),
-    width: theme.spacing(7),
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9)
-    }
-  },
-  appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto'
-  },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4)
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column'
-  },
-  fixedHeight: {
-    height: 240
-  }
-}))
-
 const IndexPage: React.FC = () => {
   const data = useStaticQuery(mainIndexQuery)
 
@@ -152,17 +72,20 @@ const IndexPage: React.FC = () => {
     <MainLayout>
       <Page>
         <Container>
-          <h1>최근 작성한 게시글 목록</h1>
-          <ul>
+          <div>
+            <h2>최근 작성한 게시글 목록</h2>
+          </div>
+          <ul style={{ paddingLeft: '5px' }}>
             {data.allMarkdownRemark.edges.map(({ node }: any) => (
-              <li key={node.id}>
-                <h2>
-                  <Link to={node.frontmatter.path}>{node.frontmatter.title}</Link>
-                </h2>
-                <h3>{node.frontmatter.date}</h3>
-                <p>{node.excerpt}</p>
-                <hr />
-              </li>
+              <PostList key={node.id} data={node}></PostList>
+              // <li key={node.id}>
+              //   <h2>
+              //     <Link to={node.frontmatter.path}>{node.frontmatter.title}</Link>
+              //   </h2>
+              //   <h3>{node.frontmatter.date}</h3>
+              //   <p>{node.excerpt}</p>
+              //   <hr />
+              // </li>
             ))}
           </ul>
         </Container>
