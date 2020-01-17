@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://casternuts.github.io/sitemap.xml
+Host: https://casternuts.github.io
