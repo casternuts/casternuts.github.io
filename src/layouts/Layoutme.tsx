@@ -7,15 +7,14 @@ import '../styles/base.scss'
 const Layout = ({ children }) => (
   <div>
     <Helmet
-      title="Gatsby Design System - Example"
+      title={'Casternuts Info'}
       meta={[
-        {
-          name: 'description',
-          content: 'Gatsby Design System - Example for the remark plugin gatsby-remark-design-system'
-        },
-        { name: 'keywords', content: 'Gatsby, Gatsby-Plugin, Remark, Design, System' }
+        { name: 'description', content: '캐스터넛트 경력 사항 입니다.' },
+        { name: 'keywords', content: '캐스터넛트 개발자, 캐스터,캐스터넛트,프론트앤드,백앤드' },
+        { name: 'google-site-verification', content: 'pmMczz3_obWdX30sbLeRjghI-Dvws3yhfm3_codQS_w' }
       ]}
     />
+
     <div
       style={{
         margin: '0 auto',

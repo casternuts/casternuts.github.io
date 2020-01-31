@@ -8,13 +8,6 @@ const PageMe = ({ data }: any) => {
   const postNode = data.markdownRemark
   return (
     <LayoutMe>
-      <Helmet
-        title={'Casternuts Info'}
-        meta={[
-          { name: 'description', content: '캐스터넛트 경력 사항 입니다.' },
-          { name: 'keywords', content: '캐스터넛트 개발자, 캐스터,캐스터넛트,프론트앤드,백앤드' }
-        ]}
-      />
       <div style={{ padding: '20px' }} dangerouslySetInnerHTML={{ __html: postNode.html }} />
     </LayoutMe>
   )

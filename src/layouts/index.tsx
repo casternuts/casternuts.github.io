@@ -36,11 +36,20 @@ const IndexLayout: React.FC = ({ children }) => (
           title={data.site.siteMetadata.title}
           meta={[
             { name: 'description', content: data.site.siteMetadata.description },
-            { name: 'keywords', content: data.site.siteMetadata.keywords }
+            { name: 'keywords', content: data.site.siteMetadata.keywords },
+            { name: 'google-site-verification', content: 'pmMczz3_obWdX30sbLeRjghI-Dvws3yhfm3_codQS_w' }
           ]}
         />
         <Header title={data.site.siteMetadata.title} />
-        <div>{children}</div>
+        <div
+          style={{
+            margin: '0 auto',
+            maxWidth: 1000,
+            padding: '2rem 1.0875rem 1.45rem 2rem'
+          }}
+        >
+          {children}
+        </div>
       </LayoutRoot>
     )}
   />
