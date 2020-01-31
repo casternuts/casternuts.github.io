@@ -7,7 +7,6 @@ import '../styles/normalize'
 
 import Header from '../components/Header'
 import LayoutRoot from '../components/LayoutRoot'
-import LayoutMain from '../components/LayoutMain'
 
 interface StaticQueryProps {
   site: {

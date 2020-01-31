@@ -35,6 +35,13 @@ module.exports = {
       options: {
         plugins: [
           {
+            resolve: 'gatsby-remark-external-links',
+            options: {
+              target: '_blank',
+              rel: 'nofollow noopener noreferrer'
+            }
+          },
+          {
             resolve: 'gatsby-remark-responsive-iframe',
             options: {
               wrapperStyle: 'margin-bottom: 1rem'
@@ -43,6 +50,8 @@ module.exports = {
           'gatsby-remark-prismjs',
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
+          'gatsby-remark-design-system',
+          'gatsby-remark-autolink-headers',
           {
             resolve: 'gatsby-remark-images',
             options: {
@@ -75,6 +84,7 @@ module.exports = {
     'gatsby-transformer-sharp',
     'gatsby-plugin-react-helmet',
     `gatsby-plugin-material-ui`,
-    'gatsby-plugin-sitemap'
+    'gatsby-plugin-sitemap',
+    'gatsby-plugin-sass'
   ]
 }

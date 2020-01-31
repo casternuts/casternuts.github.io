@@ -5,6 +5,7 @@ import Post from '../components/Post'
 // import Container from '../components/Container'
 import IndexLayout from '../layouts'
 import Container from '@material-ui/core/Container'
+import LayoutMe from '../layouts/Layoutme'
 interface PageTemplateProps {
   data: {
     site: {
@@ -35,9 +36,9 @@ interface PageTemplateProps {
 const PageTemplate: React.FC<PageTemplateProps> = ({ data }) => {
   return (
     <IndexLayout>
-      <Container>
+      <LayoutMe>
         <Post data={data}></Post>
-      </Container>
+      </LayoutMe>
     </IndexLayout>
   )
 }
