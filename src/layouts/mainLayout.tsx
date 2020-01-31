@@ -1,22 +1,12 @@
 import * as React from 'react'
-
 import Helmet from 'react-helmet'
-
 import { graphql, useStaticQuery } from 'gatsby'
-
 import clsx from 'clsx'
-
-import CssBaseline from '@material-ui/core/CssBaseline'
 import Drawer from '@material-ui/core/Drawer'
-
 import List from '@material-ui/core/List'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
-
-//  import Link from '@material-ui/core/Link';
-import MenuIcon from '@material-ui/icons/Menu'
-
 import ListItem from '@material-ui/core/ListItem'
 
 import ListItemText from '@material-ui/core/ListItemText'

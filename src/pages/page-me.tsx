@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
-import Container from '@material-ui/core/Container'
+import Helmet from 'react-helmet'
 import LayoutMe from '../layouts/Layoutme'
 import '../styles/md.css'
 
@@ -8,13 +8,13 @@ const PageMe = ({ data }: any) => {
   const postNode = data.markdownRemark
   return (
     <LayoutMe>
-      {/* <Helmet
-        title={data.site.siteMetadata.title}
+      <Helmet
+        title={'Casternuts Info'}
         meta={[
-          { name: 'description', content: data.site.siteMetadata.description },
-          { name: 'keywords', content: data.site.siteMetadata.keywords }
+          { name: 'description', content: '캐스터넛트 경력 사항 입니다.' },
+          { name: 'keywords', content: '캐스터넛트 개발자, 캐스터,캐스터넛트,프론트앤드,백앤드' }
         ]}
-      /> */}
+      />
       <div style={{ padding: '20px' }} dangerouslySetInnerHTML={{ __html: postNode.html }} />
     </LayoutMe>
   )
