@@ -2,6 +2,8 @@ import * as React from 'react'
 import { Chip, Divider, Typography } from '@material-ui/core'
 import styled from '@emotion/styled'
 import Utterances from './Utterances'
+import Container from '../Container'
+import './poststyle.css'
 interface PostProps {
   data: {
     site: {
@@ -34,7 +36,7 @@ const styleDate = {
 }
 
 const Post: React.FC<PostProps> = ({ data }) => (
-  <div>
+  <Container>
     {' '}
     <h1>{data.markdownRemark.frontmatter.title}</h1>
     <div>
@@ -51,7 +53,7 @@ const Post: React.FC<PostProps> = ({ data }) => (
     <div>
       <Utterances repo="casternuts/casternuts.github.io" />
     </div>
-  </div>
+  </Container>
 )
 
 export default Post

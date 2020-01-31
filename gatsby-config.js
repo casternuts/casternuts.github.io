@@ -4,7 +4,7 @@ module.exports = {
   siteMetadata: {
     title: 'Casternuts Log',
     description: 'casternuts의 블로그 입니다.',
-    keywords: 'gatsbyjs, gatsby, javascript, sample, something',
+    keywords: 'gatsbyjs, gatsby, javascript,웹개발,casternuts, 캐스터넛츠',
     siteUrl: 'https://casternuts.github.io',
     author: {
       name: 'casternuts',

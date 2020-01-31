@@ -1,0 +1,10 @@
+.gatsby-highlight {
+    background-color: #f2f2f2;
+    border-radius: 1em;
+    padding: 20px;
+
+}
+
+p>.language-text {
+    color: rgb(224, 92, 3);
+}

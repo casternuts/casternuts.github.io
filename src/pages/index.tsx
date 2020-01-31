@@ -73,19 +73,12 @@ const IndexPage: React.FC = () => {
       <Page>
         <Container>
           <div>
-            <h2>최근 작성한 게시글 목록</h2>
+            <h2>게시글 목록</h2>
           </div>
           <ul style={{ paddingLeft: '5px' }}>
             {data.allMarkdownRemark.edges.map(({ node }: any) => (
               <PostList key={node.id} data={node}></PostList>
-              // <li key={node.id}>
-              //   <h2>
-              //     <Link to={node.frontmatter.path}>{node.frontmatter.title}</Link>
-              //   </h2>
-              //   <h3>{node.frontmatter.date}</h3>
-              //   <p>{node.excerpt}</p>
-              //   <hr />
-              // </li>
+        
             ))}
           </ul>
         </Container>
