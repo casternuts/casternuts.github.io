@@ -31,7 +31,6 @@ interface TagTemplateProps {
 }
 
 const tagTemplate: React.FC<TagTemplateProps> = ({ data }) => {
-  console.log(data)
   return (
     <MainLayout>
       <Page>
@@ -46,7 +45,10 @@ const tagTemplate: React.FC<TagTemplateProps> = ({ data }) => {
           </div>
           <div style={{ width: '100%', display: 'inline-block' }}>
             <div>
-              <h1 style={{ float: 'left' }}> Tag #{typeof window !== `undefined` && window.location && location.pathname.split('/')[2]}</h1>
+              <h1 style={{ float: 'left' }}>
+                {' '}
+                Tag #{typeof window !== `undefined` && window.location && data.allMarkdownRemark.nodes[0].frontmatter.tag}
+              </h1>
             </div>
           </div>
 
